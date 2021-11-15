@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BrowserBlog.Browsers.Data.Context\BrowserBlog.Browsers.Data.Context.csproj" />
+    <ProjectReference Include="..\BrowserBlog.Browsers.Domain\BrowserBlog.Browsers.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
