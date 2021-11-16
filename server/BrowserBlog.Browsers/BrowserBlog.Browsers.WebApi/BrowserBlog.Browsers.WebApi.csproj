@@ -15,8 +15,4 @@
     <ProjectReference Include="..\BrowserBlog.Browsers.Domain\BrowserBlog.Browsers.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Response\Browser\" />
-  </ItemGroup>
-
 </Project>

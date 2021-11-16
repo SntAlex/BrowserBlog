@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BrowserBlog.Browsers.Domain.Models.Errors;
 
 namespace BrowserBlog.Browsers.Services.Services
 {
@@ -31,7 +32,7 @@ namespace BrowserBlog.Browsers.Services.Services
             catch (Exception e)
             {
                 Logger.LogError(e, e.Message);
-                return new OperationResult<IEnumerable<BrowserDto>>("Internal server error");
+                return new OperationResult<IEnumerable<BrowserDto>>(new InternalServerError());
             }
         }
 
@@ -46,7 +47,7 @@ namespace BrowserBlog.Browsers.Services.Services
             catch (Exception e)
             {
                 Logger.LogError(e, e.Message);
-                return new OperationResult("Internal server error");
+                return new OperationResult(new InternalServerError());
             }
 
             return new OperationResult();
@@ -58,7 +59,7 @@ namespace BrowserBlog.Browsers.Services.Services
 
             if (entity == null)
             {
-                return new OperationResult($"Entity {browserDto.Id} not exists");
+                return new OperationResult(new NotFoundError(browserDto.Id));
             }
 
             try
@@ -70,7 +71,7 @@ namespace BrowserBlog.Browsers.Services.Services
             catch (Exception e)
             {
                 Logger.LogError(e, e.Message);
-                return new OperationResult("Internal server error");
+                return new OperationResult(new InternalServerError());
             }
 
             return new OperationResult();
@@ -82,7 +83,7 @@ namespace BrowserBlog.Browsers.Services.Services
 
             if (entity == null)
             {
-                return new OperationResult($"Entity {id} not exists");
+                return new OperationResult(new NotFoundError(id));
             }
 
             try
@@ -93,7 +94,7 @@ namespace BrowserBlog.Browsers.Services.Services
             catch (Exception e)
             {
                 Logger.LogError(e, e.Message);
-                return new OperationResult("Internal server error");
+                return new OperationResult(new InternalServerError());
             }
 
             return new OperationResult();

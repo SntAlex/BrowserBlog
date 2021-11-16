@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace BrowserBlog.Browsers.Domain.Contracts.Repositories.Base
 {
-    public interface IRepository { }
+    public interface IRepository
+    {
+
+    }
 
     public interface IRepository<TEntity> : IRepository where TEntity : BaseEntity
     {

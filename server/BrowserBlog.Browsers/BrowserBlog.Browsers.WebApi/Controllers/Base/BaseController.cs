@@ -12,5 +12,15 @@ namespace BrowserBlog.Browsers.WebApi.Controllers.Base
         {
             Mapper = mapper;
         }
+
+        protected ActionResult GetErrorResult(string errorMessage, int statusCode)
+        {
+            return statusCode switch
+            {
+                404 => NotFound(errorMessage),
+                400 => BadRequest(errorMessage),
+                _ => StatusCode(500, errorMessage)
+            };
+        }
     }
 }

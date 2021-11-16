@@ -1,19 +1,21 @@
-﻿namespace BrowserBlog.Browsers.Domain.Contracts.Services
+﻿using BrowserBlog.Browsers.Domain.Models.Errors.Base;
+
+namespace BrowserBlog.Browsers.Domain.Contracts.Services
 {
     public class OperationResult
     {
         public bool IsSuccessful { get; set; }
-        public string ErrorMessage { get; set; }
+        public BaseError Error { get; set; }
 
         public OperationResult()
         {
             IsSuccessful = true;
         }
 
-        public OperationResult(string message)
+        public OperationResult(BaseError error)
         {
             IsSuccessful = false;
-            ErrorMessage = message;
+            Error = error;
         }
     }
 
@@ -21,7 +23,7 @@
     {
         public TData Data { get; set; }
 
-        public OperationResult(string message) : base(message)
+        public OperationResult(BaseError error) : base(error)
         {
 
         }
