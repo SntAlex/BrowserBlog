@@ -36,6 +36,28 @@ namespace BrowserBlog.Browsers.Services.Services
             }
         }
 
+        public async Task<OperationResult<BrowserDto>> GetBrowser(Guid id)
+        {
+            try
+            {
+                var entity = await _unitOfWork.GetRepository<Browser>().FindAsync(id);
+
+                if (entity == null)
+                {
+                    Logger.LogError($"Entity {id} not found");
+                    return new OperationResult<BrowserDto>(new NotFoundError(id));
+                }
+
+                return new OperationResult<BrowserDto>(Mapper.Map<BrowserDto>(entity));
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, e.Message);
+                return new OperationResult<BrowserDto>(new InternalServerError());
+            }
+            
+        }
+
         public async Task<OperationResult> AddBrowserAsync(BrowserDto browserDto)
         {
             try
@@ -53,12 +75,13 @@ namespace BrowserBlog.Browsers.Services.Services
             return new OperationResult();
         }
 
-        public async Task<OperationResult> UpdateBrowserDto(BrowserDto browserDto)
+        public async Task<OperationResult> UpdateBrowser(BrowserDto browserDto)
         {
             var entity = await _unitOfWork.GetRepository<Browser>().FindAsync(browserDto.Id);
 
             if (entity == null)
             {
+                Logger.LogError($"Entity {browserDto.Id} not found");
                 return new OperationResult(new NotFoundError(browserDto.Id));
             }
 

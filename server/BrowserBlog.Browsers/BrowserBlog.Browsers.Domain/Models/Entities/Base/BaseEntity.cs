@@ -8,14 +8,12 @@ namespace BrowserBlog.Browsers.Domain.Models.Entities.Base
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-
+        public Guid Id { get; private set; }
         [DataType(DataType.DateTime)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; set; }
-
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
         [DataType(DataType.DateTime)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; private set; } = DateTime.Now;
     }
 }

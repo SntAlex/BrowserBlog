@@ -32,6 +32,19 @@ namespace BrowserBlog.Browsers.WebApi.Controllers.v1
             return Ok();
         }
 
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<Guid>> GetBrowser(Guid id)
+        {
+            var serviceResult = await _browserService.GetBrowser(id);
+
+            if (!serviceResult.IsSuccessful)
+            {
+                return GetErrorResult(serviceResult.Error.ErrorMessage, serviceResult.Error.StatusCode);
+            }
+
+            return Ok(Mapper.Map<BrowserDetailed>(serviceResult.Data));
+        }
+
         [HttpGet]
         public ActionResult<BrowserList> GetBrowserList()
         {
@@ -48,7 +61,7 @@ namespace BrowserBlog.Browsers.WebApi.Controllers.v1
         [HttpPut]
         public async Task<ActionResult> UpdateBrowser(BrowserUpdate browser)
         {
-            var serviceResult = await _browserService.UpdateBrowserDto(Mapper.Map<BrowserDto>(browser));
+            var serviceResult = await _browserService.UpdateBrowser(Mapper.Map<BrowserDto>(browser));
             
             if (!serviceResult.IsSuccessful)
             {
@@ -58,7 +71,7 @@ namespace BrowserBlog.Browsers.WebApi.Controllers.v1
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteBrowser(Guid id)
         {
             var serviceResult = await _browserService.DeleteBrowser(id);

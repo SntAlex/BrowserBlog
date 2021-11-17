@@ -1,4 +1,5 @@
-﻿using BrowserBlog.Browsers.Domain.Models.Entities;
+﻿using BrowserBlog.Browsers.Data.Context.Configurations;
+using BrowserBlog.Browsers.Domain.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BrowserBlog.Browsers.Data.Context
@@ -12,6 +13,8 @@ namespace BrowserBlog.Browsers.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new BrowserConfiguration());
         }
     }
 }

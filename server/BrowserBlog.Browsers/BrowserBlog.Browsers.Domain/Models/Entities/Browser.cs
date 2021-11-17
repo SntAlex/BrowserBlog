@@ -1,15 +1,16 @@
-﻿using System;
+﻿using BrowserBlog.Browsers.Domain.Models.Entities.Base;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using BrowserBlog.Browsers.Domain.Models.Entities.Base;
 
 namespace BrowserBlog.Browsers.Domain.Models.Entities
 {
+    [Index(nameof(Name), IsUnique = true)]
     public class Browser : BaseEntity
     {
         [Required]
-        [StringLength(256)]
-        public string Name { get; set; }
+        [StringLength(60)]
+        public string Name { get; private set; }
         [StringLength(1000)]
-        public string Description { get; set; }
+        public string Description { get; private set; }
     }
 }

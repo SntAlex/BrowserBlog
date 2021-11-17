@@ -9,8 +9,9 @@ namespace BrowserBlog.Browsers.Domain.Contracts.Services
     public interface IBrowserService : IBaseService
     {
         OperationResult<IEnumerable<BrowserDto>> GetBrowsersList();
+        Task<OperationResult<BrowserDto>> GetBrowser(Guid id);
         Task<OperationResult> AddBrowserAsync(BrowserDto browserDto);
-        Task<OperationResult> UpdateBrowserDto(BrowserDto browserDto);
+        Task<OperationResult> UpdateBrowser(BrowserDto browserDto);
         Task<OperationResult> DeleteBrowser(Guid id);
     }
 }

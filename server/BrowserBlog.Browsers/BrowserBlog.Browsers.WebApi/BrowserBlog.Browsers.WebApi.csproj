@@ -7,12 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BrowserBlog.Browsers.Data.Context\BrowserBlog.Browsers.Data.Context.csproj" />
+    <ProjectReference Include="..\BrowserBlog.Browsers.Data.Repositories\BrowserBlog.Browsers.Data.Repositories.csproj" />
     <ProjectReference Include="..\BrowserBlog.Browsers.Domain\BrowserBlog.Browsers.Domain.csproj" />
+    <ProjectReference Include="..\BrowserBlog.Browsers.Services\BrowserBlog.Browsers.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BrowserBlog.Browsers.WebApi.Controllers.Base
 {
     [ApiController]
+    [Route("v1/[controller]")]
     public abstract class BaseController : ControllerBase
     {
         protected readonly IMapper Mapper;

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using BrowserBlog.Browsers.Data.Context;
+﻿using BrowserBlog.Browsers.Data.Context;
+using BrowserBlog.Browsers.Data.Repositories.Base;
 using BrowserBlog.Browsers.Domain.Contracts.Repositories;
 using BrowserBlog.Browsers.Domain.Contracts.Repositories.Base;
 using BrowserBlog.Browsers.Domain.Models.Entities.Base;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using BrowserBlog.Browsers.Data.Repositories.Base;
 
 namespace BrowserBlog.Browsers.Data.Repositories
 {
@@ -28,7 +28,7 @@ namespace BrowserBlog.Browsers.Data.Repositories
                 _repositories.Add(typeName, new Repository<TEntity>(_dbContext));
             }
 
-            return (IRepository<TEntity>) _repositories[typeName];
+            return (IRepository<TEntity>)_repositories[typeName];
         }
 
         public async Task CommitAsync()
