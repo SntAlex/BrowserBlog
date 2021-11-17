@@ -32,7 +32,7 @@ namespace BrowserBlog.Browsers.WebApi
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBrowserService, BrowserService>();
-            
+            services.AddScoped<IBrowserPageService, BrowserPageService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

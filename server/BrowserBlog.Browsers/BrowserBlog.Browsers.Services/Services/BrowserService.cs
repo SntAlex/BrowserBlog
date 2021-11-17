@@ -36,45 +36,6 @@ namespace BrowserBlog.Browsers.Services.Services
             }
         }
 
-        public async Task<OperationResult<BrowserDto>> GetBrowser(Guid id)
-        {
-            try
-            {
-                var entity = await _unitOfWork.GetRepository<Browser>().FindAsync(id);
-
-                if (entity == null)
-                {
-                    Logger.LogError($"Entity {id} not found");
-                    return new OperationResult<BrowserDto>(new NotFoundError(id));
-                }
-
-                return new OperationResult<BrowserDto>(Mapper.Map<BrowserDto>(entity));
-            }
-            catch (Exception e)
-            {
-                Logger.LogError(e, e.Message);
-                return new OperationResult<BrowserDto>(new InternalServerError());
-            }
-            
-        }
-
-        public async Task<OperationResult> AddBrowserAsync(BrowserDto browserDto)
-        {
-            try
-            {
-                var entity = Mapper.Map<Browser>(browserDto);
-                await _unitOfWork.GetRepository<Browser>().AddAsync(entity);
-                await _unitOfWork.CommitAsync();
-            }
-            catch (Exception e)
-            {
-                Logger.LogError(e, e.Message);
-                return new OperationResult(new InternalServerError());
-            }
-
-            return new OperationResult();
-        }
-
         public async Task<OperationResult> UpdateBrowser(BrowserDto browserDto)
         {
             var entity = await _unitOfWork.GetRepository<Browser>().FindAsync(browserDto.Id);
@@ -89,29 +50,6 @@ namespace BrowserBlog.Browsers.Services.Services
             {
                 Mapper.Map(browserDto, entity);
                 _unitOfWork.GetRepository<Browser>().Update(entity);
-                await _unitOfWork.CommitAsync();
-            }
-            catch (Exception e)
-            {
-                Logger.LogError(e, e.Message);
-                return new OperationResult(new InternalServerError());
-            }
-
-            return new OperationResult();
-        }
-
-        public async Task<OperationResult> DeleteBrowser(Guid id)
-        {
-            var entity = await _unitOfWork.GetRepository<Browser>().FindAsync(id);
-
-            if (entity == null)
-            {
-                return new OperationResult(new NotFoundError(id));
-            }
-
-            try
-            {
-                _unitOfWork.GetRepository<Browser>().Delete(entity);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception e)

@@ -13,7 +13,7 @@ namespace BrowserBlog.Browsers.WebApi.Configuration.Mappers
             CreateMap<BrowserCreate, BrowserDto>();
             CreateMap<BrowserUpdate, BrowserDto>();
             CreateMap<BrowserDto, BrowserListItem>();
-            CreateMap<IEnumerable<BrowserDto>, BrowserList>()
+            CreateMap<ICollection<BrowserDto>, BrowserList>()
                 .ForMember(dest => dest.Browsers, 
                     opt => opt.MapFrom(src => src));
             CreateMap<BrowserDto, BrowserDetailed>();

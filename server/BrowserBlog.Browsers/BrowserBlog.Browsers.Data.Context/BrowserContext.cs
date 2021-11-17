@@ -7,6 +7,8 @@ namespace BrowserBlog.Browsers.Data.Context
     public class BrowserContext : DbContext
     {
         public DbSet<Browser> Browsers { get; set; }
+        public DbSet<BrowserPage> BrowserPages { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public BrowserContext(DbContextOptions<BrowserContext> options) : base(options) { }
 
@@ -15,6 +17,7 @@ namespace BrowserBlog.Browsers.Data.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new BrowserConfiguration());
+            modelBuilder.ApplyConfiguration(new BrowserPageConfiguration());
         }
     }
 }

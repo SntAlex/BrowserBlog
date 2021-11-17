@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BrowserBlog.Browsers.Data.Context.Configurations
 {
-    public class BrowserConfiguration : BaseEntityConfiguration<Browser>
+    public class BrowserPageConfiguration : BaseEntityConfiguration<BrowserPage>
     {
-        public override void Configure(EntityTypeBuilder<Browser> builder)
+        public override void Configure(EntityTypeBuilder<BrowserPage> builder)
         {
             base.Configure(builder);
-            builder.HasIndex(entity => entity.Name).IsUnique();
         }
     }
 }
