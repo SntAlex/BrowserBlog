@@ -48,9 +48,13 @@ namespace BrowserBlog.Browsers.Data.Repositories.Base
             await _entities.AddRangeAsync(entities);
         }
 
-        public async Task<TEntity> FindAsync(Guid id)
+        public async Task<TEntity> FindAsync(Guid id, bool tracking = false, params Expression<Func<TEntity, object>>[] inclusions)
         {
-            return await _entities.FindAsync(id);
+            var queryResult = tracking ? _entities.AsTracking() : _entities.AsNoTracking();
+
+            queryResult = inclusions.Aggregate(queryResult, (current, inclusion) => current.Include(inclusion));
+
+            return await queryResult.FirstOrDefaultAsync(entity => entity.Id == id);
         }
 
         public void Update(TEntity entity)

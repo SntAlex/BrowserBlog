@@ -7,6 +7,8 @@ using BrowserBlog.Browsers.Domain.Models.Errors;
 using BrowserBlog.Browsers.Services.Services.Base;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BrowserBlog.Browsers.Services.Services
@@ -63,7 +65,7 @@ namespace BrowserBlog.Browsers.Services.Services
 
         public async Task<OperationResult> AddComment(Guid browserPageId, CommentDto commentDto)
         {
-            var browserPageEntity = await _unitOfWork.GetRepository<BrowserPage>().FindAsync(browserPageId);
+            var browserPageEntity = await _unitOfWork.GetRepository<BrowserPage>().FindAsync(browserPageId, false, browserPage => browserPage.Comments);
 
             if (browserPageEntity == null)
             {
@@ -75,9 +77,8 @@ namespace BrowserBlog.Browsers.Services.Services
             {
                 var commentEntity = Mapper.Map<Comment>(commentDto);
                 browserPageEntity.Comments.Add(commentEntity);
+                _unitOfWork.GetRepository<BrowserPage>().Update(browserPageEntity);
 
-                await _unitOfWork.GetRepository<Comment>().AddAsync(commentEntity);
-                await _unitOfWork.GetRepository<BrowserPage>().AddAsync(browserPageEntity);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception e)
@@ -91,7 +92,7 @@ namespace BrowserBlog.Browsers.Services.Services
 
         public async Task<OperationResult<BrowserPageDto>> GetBrowserPage(Guid id)
         {
-            var browserPageEntity = await _unitOfWork.GetRepository<BrowserPage>().FindAsync(id);
+            var browserPageEntity = await _unitOfWork.GetRepository<BrowserPage>().FindAsync(id, true, browserPage => browserPage.Comments);
 
             if (browserPageEntity == null)
             {
@@ -100,6 +101,45 @@ namespace BrowserBlog.Browsers.Services.Services
             }
 
             return new OperationResult<BrowserPageDto>(Mapper.Map<BrowserPageDto>(browserPageEntity));
+        }
+
+        public OperationResult<ICollection<BrowserPageDto>> GetBrowsersTitlesList()
+        {
+            try
+            {
+                var entities = _unitOfWork.GetRepository<BrowserPage>().Get().ToList();
+                return new OperationResult<ICollection<BrowserPageDto>>(Mapper.Map<ICollection<BrowserPageDto>>(entities));
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, e.Message);
+                return new OperationResult<ICollection<BrowserPageDto>>(new InternalServerError());
+            }
+        }
+
+        public async Task<OperationResult> UpdateBrowserPage(BrowserPageDto browserPageDto)
+        {
+            var entity = await _unitOfWork.GetRepository<BrowserPage>().FindAsync(browserPageDto.Id);
+
+            if (entity == null)
+            {
+                Logger.LogError($"Entity {browserPageDto.Id} not found");
+                return new OperationResult(new NotFoundError(browserPageDto.Id));
+            }
+
+            try
+            {
+                Mapper.Map(browserPageDto, entity);
+                _unitOfWork.GetRepository<BrowserPage>().Update(entity);
+                await _unitOfWork.CommitAsync();
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, e.Message);
+                return new OperationResult(new InternalServerError());
+            }
+
+            return new OperationResult();
         }
     }
 }

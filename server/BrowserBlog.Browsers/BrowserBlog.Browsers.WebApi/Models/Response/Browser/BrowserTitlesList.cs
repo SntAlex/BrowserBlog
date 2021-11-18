@@ -2,9 +2,9 @@
 
 namespace BrowserBlog.Browsers.WebApi.Models.Response.Browser
 {
-    public class BrowserList
+    public class BrowserTitlesList
     {
-        public ICollection<BrowserListItem> Browsers { get; set; }
+        public ICollection<BrowserTitlesListItem> Browsers { get; set; }
         public int BrowsersCount => Browsers.Count;
     }
 }

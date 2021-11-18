@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using BrowserBlog.Browsers.Domain.Models.Entities.Base;
+﻿using BrowserBlog.Browsers.Domain.Models.Entities.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace BrowserBlog.Browsers.Domain.Models.Entities
 {
@@ -7,9 +7,9 @@ namespace BrowserBlog.Browsers.Domain.Models.Entities
     {
         [Required]
         [StringLength(60)]
-        public string Name { get; set; }
+        public string Name { get; private set; }
         [Required]
         [StringLength(1000)]
-        public string Content { get; set; }
+        public string Content { get; private set; }
     }
 }

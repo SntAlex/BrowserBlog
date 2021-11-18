@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using BrowserBlog.Browsers.Domain.Models.Dtos;
 using BrowserBlog.Browsers.WebApi.Models.Request.Browser;
+using BrowserBlog.Browsers.WebApi.Models.Response.Browser;
 using BrowserBlog.Browsers.WebApi.Models.Response.BrowserPage;
 
 namespace BrowserBlog.Browsers.WebApi.Configuration.Mappers
@@ -12,8 +14,12 @@ namespace BrowserBlog.Browsers.WebApi.Configuration.Mappers
             CreateMap<BrowserPageDto, BrowserPageDetailed>()
                 .ForMember(dest => dest.CommentsList,
                     opt => opt.MapFrom(src => src.Comments));
-            CreateMap<BrowserCreate, BrowserPageDto>().ForMember(dest => dest.Browser, 
-                opt => opt.MapFrom(src => src));
+            CreateMap<BrowserPageCreate, BrowserPageDto>();
+            CreateMap<BrowserPageUpdate, BrowserPageDto>();
+            CreateMap<BrowserPageDto, BrowserTitlesListItem>();
+            CreateMap<ICollection<BrowserPageDto>, BrowserTitlesList>()
+                .ForMember(dest => dest.Browsers, 
+                    opt => opt.MapFrom(src => src));
         }
     }
 }

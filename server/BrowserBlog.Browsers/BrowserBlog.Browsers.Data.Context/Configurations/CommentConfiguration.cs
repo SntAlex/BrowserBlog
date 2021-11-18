@@ -3,7 +3,7 @@ using BrowserBlog.Browsers.Domain.Models.Entities;
 
 namespace BrowserBlog.Browsers.Data.Context.Configurations
 {
-    internal class BrowserPageConfiguration : BaseEntityConfiguration<BrowserPage>
+    internal class CommentConfiguration : BaseEntityConfiguration<Comment>
     {
 
     }

@@ -31,7 +31,6 @@ namespace BrowserBlog.Browsers.WebApi
             services.AddDbContext<BrowserContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IBrowserService, BrowserService>();
             services.AddScoped<IBrowserPageService, BrowserPageService>();
         }
 

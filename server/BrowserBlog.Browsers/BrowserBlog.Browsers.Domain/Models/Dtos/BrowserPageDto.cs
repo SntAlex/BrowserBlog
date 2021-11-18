@@ -5,7 +5,8 @@ namespace BrowserBlog.Browsers.Domain.Models.Dtos
 {
     public class BrowserPageDto : BaseDto
     {
-        public BrowserDto Browser { get; set; }
-        public ICollection<CommentDto> Comments { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public virtual ICollection<CommentDto> Comments { get; set; }
     }
 }

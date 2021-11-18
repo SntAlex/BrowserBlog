@@ -1,13 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BrowserBlog.Browsers.WebApi.Models.Request.Browser
 {
-    public class BrowserUpdate
+    public class BrowserPageCreate
     {
-        [Required]
-        public Guid Id { get; set; }
         [Required]
         [StringLength(60)]
         public string Name { get; set; }

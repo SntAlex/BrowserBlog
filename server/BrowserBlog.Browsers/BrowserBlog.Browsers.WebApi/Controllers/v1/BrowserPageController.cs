@@ -6,6 +6,7 @@ using BrowserBlog.Browsers.Domain.Models.Dtos;
 using BrowserBlog.Browsers.WebApi.Controllers.Base;
 using BrowserBlog.Browsers.WebApi.Models.Request.Browser;
 using BrowserBlog.Browsers.WebApi.Models.Request.Comment;
+using BrowserBlog.Browsers.WebApi.Models.Response.Browser;
 using BrowserBlog.Browsers.WebApi.Models.Response.BrowserPage;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ namespace BrowserBlog.Browsers.WebApi.Controllers.v1
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateBrowserPage(BrowserCreate browserPage)
+        public async Task<ActionResult> CreateBrowserPage(BrowserPageCreate browserPage)
         {
             var serviceResult = await _browserPageService.CreateBrowserPage(Mapper.Map<BrowserPageDto>(browserPage));
 
@@ -63,6 +64,32 @@ namespace BrowserBlog.Browsers.WebApi.Controllers.v1
         public async Task<ActionResult> DeleteBrowserPage(Guid id)
         {
             var serviceResult = await _browserPageService.DeleteBrowserPage(id);
+
+            if (!serviceResult.IsSuccessful)
+            {
+                return GetErrorResult(serviceResult.Error.ErrorMessage, serviceResult.Error.StatusCode);
+            }
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public ActionResult<BrowserTitlesList> GetBrowserList()
+        {
+            var serviceResult = _browserPageService.GetBrowsersTitlesList();
+
+            if (!serviceResult.IsSuccessful)
+            {
+                return GetErrorResult(serviceResult.Error.ErrorMessage, serviceResult.Error.StatusCode);
+            }
+
+            return Ok(Mapper.Map<BrowserTitlesList>(serviceResult.Data));
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateBrowser(BrowserPageUpdate browser)
+        {
+            var serviceResult = await _browserPageService.UpdateBrowserPage(Mapper.Map<BrowserPageDto>(browser));
 
             if (!serviceResult.IsSuccessful)
             {

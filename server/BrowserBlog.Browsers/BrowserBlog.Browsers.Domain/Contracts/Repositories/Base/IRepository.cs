@@ -18,7 +18,7 @@ namespace BrowserBlog.Browsers.Domain.Contracts.Repositories.Base
         IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> expression, bool tracking = false);
         Task AddAsync(TEntity entity);
         Task AddAsync(IEnumerable<TEntity> entities);
-        Task<TEntity> FindAsync(Guid id);
+        Task<TEntity> FindAsync(Guid id, bool tracking = false, params Expression<Func<TEntity, object>>[] inclusions);
         void Update(TEntity entity);
         void Update(IEnumerable<TEntity> entities);
         void Delete(TEntity entity);

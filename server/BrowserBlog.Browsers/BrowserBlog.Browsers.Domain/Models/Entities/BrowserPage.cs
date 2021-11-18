@@ -1,13 +1,20 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using BrowserBlog.Browsers.Domain.Models.Entities.Base;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BrowserBlog.Browsers.Domain.Models.Entities
 {
+    [Index(nameof(Name), IsUnique = true)]
     public class BrowserPage : BaseEntity
     {
         [Required]
-        public virtual Browser Browser { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        [StringLength(60)]
+        public string Name { get; private set; }
+        [NotNull]
+        [StringLength(1000)]
+        public string Description { get; private set; }
+        public virtual ICollection<Comment> Comments { get; private set; }
     }
 }
