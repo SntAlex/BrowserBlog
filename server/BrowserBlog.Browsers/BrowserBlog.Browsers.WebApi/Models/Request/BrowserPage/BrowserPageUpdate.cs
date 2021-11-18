@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BrowserBlog.Browsers.WebApi.Models.Request.Browser
+namespace BrowserBlog.Browsers.WebApi.Models.Request.BrowserPage
 {
     public class BrowserPageUpdate
     {

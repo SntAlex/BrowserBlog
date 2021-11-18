@@ -4,7 +4,7 @@ using AutoMapper;
 using BrowserBlog.Browsers.Domain.Contracts.Services;
 using BrowserBlog.Browsers.Domain.Models.Dtos;
 using BrowserBlog.Browsers.WebApi.Controllers.Base;
-using BrowserBlog.Browsers.WebApi.Models.Request.Browser;
+using BrowserBlog.Browsers.WebApi.Models.Request.BrowserPage;
 using BrowserBlog.Browsers.WebApi.Models.Request.Comment;
 using BrowserBlog.Browsers.WebApi.Models.Response.Browser;
 using BrowserBlog.Browsers.WebApi.Models.Response.BrowserPage;

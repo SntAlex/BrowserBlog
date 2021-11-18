@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using BrowserBlog.Browsers.Domain.Models.Dtos;
-using BrowserBlog.Browsers.WebApi.Models.Request.Browser;
+using BrowserBlog.Browsers.WebApi.Models.Request.BrowserPage;
 using BrowserBlog.Browsers.WebApi.Models.Response.Browser;
 using BrowserBlog.Browsers.WebApi.Models.Response.BrowserPage;
 
